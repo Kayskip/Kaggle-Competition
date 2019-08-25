@@ -1,5 +1,5 @@
 {
-	"flow_name" : "pipeline",
+	"flow_name" : "Pipeline",
 	"steps" : [
 		{
 			"class" : "weka.knowledgeflow.steps.Loader",
@@ -7,7 +7,7 @@
 				"loader" : {
 					"type" : "loader",
 					"class" : "weka.core.converters.CSVLoader",
-					"filePath" : "/home/karu/Documents/COMP309/Assignment 3/core/dataset/CoreDataSet-Train.csv",
+					"filePath" : "/home/karu/Documents/COMP309/Assignment 3/core/Given Datasets/CoreDataSet-Train.csv",
 					"useRelativePath" : false,
 					"options" : "-format \"yyyy-MM-dd\\'T\\'HH:mm:ss\" -M ? -B 100 -E \"\\\",\\'\" -F ,"
 				},
@@ -38,25 +38,6 @@
 			"coordinates" : "211,116"
 		},
 		{
-			"class" : "weka.knowledgeflow.steps.Loader",
-			"properties" : {
-				"loader" : {
-					"type" : "loader",
-					"class" : "weka.core.converters.CSVLoader",
-					"filePath" : "/home/karu/Documents/COMP309/Assignment 3/core/dataset/CoreDataSet-Test.csv",
-					"useRelativePath" : false,
-					"options" : "-format \"yyyy-MM-dd\\'T\\'HH:mm:ss\" -M ? -B 100 -E \"\\\",\\'\" -F ,"
-				},
-				"name" : "CSVLoader2"
-			},
-			"connections" : {
-				"dataSet" : [
-					"TestSetMaker"
-				]
-			},
-			"coordinates" : "81,288"
-		},
-		{
 			"class" : "weka.knowledgeflow.steps.Filter",
 			"properties" : {
 				"filter" : {
@@ -71,67 +52,7 @@
 					"Resample"
 				]
 			},
-			"coordinates" : "407,116"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.Classifier",
-			"properties" : {
-				"classifier" : {
-					"type" : "optionHandler",
-					"class" : "weka.classifiers.functions.MultilayerPerceptron",
-					"options" : "-L 0.3 -M 0.2 -N 500 -V 0 -S 0 -E 20 -H a"
-				},
-				"loadClassifierFileName" : "",
-				"name" : "MultilayerPerceptron",
-				"resetIncrementalClassifier" : false,
-				"updateIncrementalClassifier" : true
-			},
-			"connections" : {
-				"batchClassifier" : [
-					"ClassifierPerformanceEvaluator",
-					"SerializedModelSaver"
-				]
-			},
-			"coordinates" : "806,113"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.TextViewer",
-			"properties" : {
-				"name" : "TextViewer"
-			},
-			"connections" : {
-			},
-			"coordinates" : "1249,396"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.TestSetMaker",
-			"properties" : {
-				"name" : "TestSetMaker"
-			},
-			"connections" : {
-				"testSet" : [
-					"ClassAssigner2"
-				]
-			},
-			"coordinates" : "363,291"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.TrainTestSplitMaker",
-			"properties" : {
-				"name" : "TrainTestSplitMaker",
-				"preserveOrder" : false,
-				"seed" : "1",
-				"trainPercent" : "66"
-			},
-			"connections" : {
-				"trainingSet" : [
-					"MultilayerPerceptron"
-				],
-				"testSet" : [
-					"MultilayerPerceptron"
-				]
-			},
-			"coordinates" : "659,114"
+			"coordinates" : "330,115"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
@@ -145,9 +66,12 @@
 			"connections" : {
 				"thresholdData" : [
 					"ModelPerformanceChart"
+				],
+				"text" : [
+					"TextViewer"
 				]
 			},
-			"coordinates" : "998,303"
+			"coordinates" : "985,113"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.Filter",
@@ -161,10 +85,10 @@
 			},
 			"connections" : {
 				"dataSet" : [
-					"TrainTestSplitMaker"
+					"CrossValidationFoldMaker"
 				]
 			},
-			"coordinates" : "534,194"
+			"coordinates" : "461,115"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.ModelPerformanceChart",
@@ -178,76 +102,87 @@
 				"offscreenYAxis" : ""
 			},
 			"connections" : {
-				"image" : [
-					"ImageSaver"
-				]
 			},
-			"coordinates" : "1172,126"
+			"coordinates" : "1169,113"
 		},
 		{
-			"class" : "weka.knowledgeflow.steps.SerializedModelSaver",
+			"class" : "weka.knowledgeflow.steps.PredictionAppender",
 			"properties" : {
-				"filenamePrefix" : "",
-				"includeRelationNameInFilename" : false,
-				"incrementalSaveSchedule" : 0,
-				"name" : "SerializedModelSaver",
-				"outputDirectory" : "/home/karu/Documents/COMP309"
+				"appendProbabilities" : false,
+				"name" : "PredictionAppender"
 			},
 			"connections" : {
-			},
-			"coordinates" : "804,326"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.ImageSaver",
-			"properties" : {
-				"file" : "/home/karu/Documents/output",
-				"format" : {
-					"type" : "enumHelper",
-					"class" : "weka.knowledgeflow.steps.ImageSaver$ImageFormat",
-					"value" : "DEFAULT"
-				},
-				"name" : "ImageSaver"
-			},
-			"connections" : {
-			},
-			"coordinates" : "1309,202"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.Filter",
-			"properties" : {
-				"filter" : {
-					"type" : "optionHandler",
-					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
-					"options" : "-C last"
-				},
-				"name" : "ClassAssigner2"
-			},
-			"connections" : {
+				"trainingSet" : [
+					"DataVisualizer"
+				],
 				"testSet" : [
-					"InputMappedClassifier"
+					"DataVisualizer"
 				]
 			},
-			"coordinates" : "480,384"
+			"coordinates" : "711,238"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.DataVisualizer",
+			"properties" : {
+				"name" : "DataVisualizer",
+				"offscreenAdditionalOpts" : "",
+				"offscreenHeight" : "400",
+				"offscreenRendererName" : "Weka Chart Renderer",
+				"offscreenWidth" : "500",
+				"offscreenXAxis" : "",
+				"offscreenYAxis" : ""
+			},
+			"connections" : {
+			},
+			"coordinates" : "919,238"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.TextViewer",
+			"properties" : {
+				"name" : "TextViewer"
+			},
+			"connections" : {
+			},
+			"coordinates" : "1169,15"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.Classifier",
 			"properties" : {
 				"classifier" : {
 					"type" : "optionHandler",
-					"class" : "weka.classifiers.misc.InputMappedClassifier",
-					"options" : "-I -trim -W weka.classifiers.rules.ZeroR"
+					"class" : "weka.classifiers.trees.J48",
+					"options" : "-C 0.25 -M 2"
 				},
-				"loadClassifierFileName" : "/home/karu/Documents/COMP309/_1_1_MultilayerPerceptron.model",
-				"name" : "InputMappedClassifier",
+				"loadClassifierFileName" : "",
+				"name" : "J48",
 				"resetIncrementalClassifier" : false,
 				"updateIncrementalClassifier" : true
 			},
 			"connections" : {
-				"text" : [
-					"TextViewer"
+				"batchClassifier" : [
+					"ClassifierPerformanceEvaluator",
+					"PredictionAppender"
 				]
 			},
-			"coordinates" : "621,320"
+			"coordinates" : "710,115"
+		},
+		{
+			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
+			"properties" : {
+				"name" : "CrossValidationFoldMaker",
+				"numFolds" : "10",
+				"preserveOrder" : false,
+				"seed" : "1"
+			},
+			"connections" : {
+				"trainingSet" : [
+					"J48"
+				],
+				"testSet" : [
+					"J48"
+				]
+			},
+			"coordinates" : "583,115"
 		}
 	]
 }
