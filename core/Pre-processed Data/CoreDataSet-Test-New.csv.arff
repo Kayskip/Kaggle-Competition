@@ -1,10 +1,10 @@
-@relation CoreDataSet-Test-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.Remove-R1
+@relation CoreDataSet-Test-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.StringToNominal-Rlast
 
-@attribute difficulty {Easy,Easiest,Advanced,'Easiest,Easy',Intermediate,'Advanced,Expert',Expert,'Intermediate,Advanced','Easy,Advanced','Easy,Expert','Intermediate,Advanced,Expert','Easiest,Advanced','Easiest,Expert'}
+@attribute difficulty {Easy,Advanced,Intermediate,Easiest,Expert,'Easy,Advanced','Advanced,Expert','Intermediate,Advanced','Easiest,Easy'}
 @attribute Shape__Length numeric
 @attribute X numeric
 @attribute Y numeric
-@attribute Class {0,1,2}
+@attribute Class {}
 
 @data
 Easy,5253.591486,176.183022,-39.792327,?

@@ -15,27 +15,10 @@
 			},
 			"connections" : {
 				"dataSet" : [
-					"NumericToNominal"
+					"CrossValidationFoldMaker"
 				]
 			},
 			"coordinates" : "88,116"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.Filter",
-			"properties" : {
-				"filter" : {
-					"type" : "optionHandler",
-					"class" : "weka.filters.unsupervised.attribute.ClassAssigner",
-					"options" : "-C last"
-				},
-				"name" : "ClassAssigner"
-			},
-			"connections" : {
-				"dataSet" : [
-					"Resample"
-				]
-			},
-			"coordinates" : "330,115"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.ClassifierPerformanceEvaluator",
@@ -55,23 +38,6 @@
 				]
 			},
 			"coordinates" : "985,113"
-		},
-		{
-			"class" : "weka.knowledgeflow.steps.Filter",
-			"properties" : {
-				"filter" : {
-					"type" : "optionHandler",
-					"class" : "weka.filters.supervised.instance.Resample",
-					"options" : "-B 0.0 -S 1 -Z 100.0"
-				},
-				"name" : "Resample"
-			},
-			"connections" : {
-				"dataSet" : [
-					"CrossValidationFoldMaker"
-				]
-			},
-			"coordinates" : "461,115"
 		},
 		{
 			"class" : "weka.knowledgeflow.steps.ModelPerformanceChart",
@@ -129,27 +95,6 @@
 			"coordinates" : "1169,15"
 		},
 		{
-			"class" : "weka.knowledgeflow.steps.Classifier",
-			"properties" : {
-				"classifier" : {
-					"type" : "optionHandler",
-					"class" : "weka.classifiers.trees.J48",
-					"options" : "-C 0.25 -M 2"
-				},
-				"loadClassifierFileName" : "",
-				"name" : "J48",
-				"resetIncrementalClassifier" : false,
-				"updateIncrementalClassifier" : true
-			},
-			"connections" : {
-				"batchClassifier" : [
-					"ClassifierPerformanceEvaluator",
-					"PredictionAppender"
-				]
-			},
-			"coordinates" : "710,115"
-		},
-		{
 			"class" : "weka.knowledgeflow.steps.CrossValidationFoldMaker",
 			"properties" : {
 				"name" : "CrossValidationFoldMaker",
@@ -159,30 +104,34 @@
 			},
 			"connections" : {
 				"trainingSet" : [
-					"J48"
+					"LinearRegression"
 				],
 				"testSet" : [
-					"J48"
+					"LinearRegression"
 				]
 			},
-			"coordinates" : "583,115"
+			"coordinates" : "375,117"
 		},
 		{
-			"class" : "weka.knowledgeflow.steps.Filter",
+			"class" : "weka.knowledgeflow.steps.Classifier",
 			"properties" : {
-				"filter" : {
+				"classifier" : {
 					"type" : "optionHandler",
-					"class" : "weka.filters.unsupervised.attribute.NumericToNominal",
-					"options" : "-R last"
+					"class" : "weka.classifiers.functions.LinearRegression",
+					"options" : "-S 0 -R 1.0E-8 -num-decimal-places 4"
 				},
-				"name" : "NumericToNominal"
+				"loadClassifierFileName" : "",
+				"name" : "LinearRegression",
+				"resetIncrementalClassifier" : false,
+				"updateIncrementalClassifier" : true
 			},
 			"connections" : {
-				"dataSet" : [
-					"ClassAssigner"
+				"batchClassifier" : [
+					"PredictionAppender",
+					"ClassifierPerformanceEvaluator"
 				]
 			},
-			"coordinates" : "203,119"
+			"coordinates" : "643,117"
 		}
 	]
 }

@@ -1,12 +1,4 @@
-@relation CoreDataSet-Test-weka.filters.unsupervised.attribute.StringToNominal-Rlast-weka.filters.unsupervised.attribute.Remove-R1
-
-@attribute difficulty {Easy,Easiest,Advanced,'Easiest,Easy',Intermediate,'Advanced,Expert',Expert,'Intermediate,Advanced','Easy,Advanced','Easy,Expert','Intermediate,Advanced,Expert','Easiest,Advanced','Easiest,Expert'}
-@attribute Shape__Length numeric
-@attribute X numeric
-@attribute Y numeric
-@attribute Class {0,1,2}
-
-@data
+difficulty,Shape__Length,X,Y,Class
 Easy,5253.591486,176.183022,-39.792327,?
 Advanced,7410.269228,169.852902,-44.658424,?
 Intermediate,46597.11962,177.025401,-38.752476,?
