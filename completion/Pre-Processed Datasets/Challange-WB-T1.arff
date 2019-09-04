@@ -1,4 +1,11 @@
-X,Y,difficulty,Time
+@relation Challange-WB-T1
+
+@attribute X numeric
+@attribute Y numeric
+@attribute difficulty {Easy,'Advanced,Expert',Advanced,'Easiest,Advanced',Easiest,'Easiest,Easy',Intermediate,Expert,'Intermediate,Advanced','Easiest,Easy,Advanced','Easy,Advanced','Easy,Advanced,Expert','Easy,Expert','Easiest,Expert','Intermediate,Advanced,Expert','Easy,Intermediate'}
+@attribute Time numeric
+
+@data
 178.30843,-38.231307,Easy,120
 172.622902,-40.752098,Easy,180
 174.093759,-39.272137,'Advanced,Expert',2160
